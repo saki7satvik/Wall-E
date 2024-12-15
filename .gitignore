@@ -5,3 +5,5 @@ stapler-detection-1
 human-detection-1
 yolov5
 captured_images
+vosk-model-small-en-us-0.15
+output_with_index.csv
