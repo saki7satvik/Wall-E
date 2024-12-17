@@ -21,7 +21,7 @@ def capture_images(save_dir, num_images=20, camera_index=0):
         return
     
     print("Press 'Space' to capture an image and 'q' to quit.")
-    captured_images = 0
+    captured_images = 20
     
     while True:
         ret, frame = cap.read()
@@ -59,7 +59,7 @@ def capture_images(save_dir, num_images=20, camera_index=0):
 # Directory to save images
 output_directory = "captured_images"
 # Number of images to capture
-number_of_images = 20
+number_of_images = 40
 
 # Call the function
 capture_images(output_directory, number_of_images)

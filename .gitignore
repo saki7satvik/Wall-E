@@ -1,6 +1,8 @@
 myenv/
+venv
 *.pt
 *.yaml
+*.jpg
 stapler-detection-1
 human-detection-1
 yolov5
