@@ -1,14 +1,17 @@
 #include <Servo.h>
 
 Servo topServo;     // Top servo
-Servo bottomServo;  // Bottom servo
+Servo middleServo;  // Middle servo
+Servo bottomServo;
 
-const int topServoPin = 7;
-const int bottomServoPin = 8;
+const int topServoPin = 9;
+const int middleServoPin = 8;
+const int bottomServoPin = 7;
 
 void setup() {
   Serial.begin(9600);
   topServo.attach(topServoPin);
+  middleServo.attach(middleServoPin);
   bottomServo.attach(bottomServoPin);
 
   // Set initial positions
@@ -18,39 +21,41 @@ void setup() {
 }
 
 void loop() {
-  if (Serial.available() > 0) {
-    String input = Serial.readStringUntil('\n');  // Read the entire command string
+  bottomServo.write(0);
+  topServo.write(0);
+  // if (Serial.available() > 0) {
+  //   String input = Serial.readStringUntil('\n');  // Read the entire command string
 
-    // Handle "init" command to initialize servos
-    if (input.startsWith("init")) {
-      init_servo();
-      Serial.println("Initialization complete.");
-    }
-    // Handle commands for top servo (T)
-    else if (input.startsWith("T:")) {
-      int angle = input.substring(2).toInt();  // Extract the angle
-      if (angle >= 0 && angle <= 180) {
-        topServo.write(angle);  // Move top servo
-        Serial.print("Top servo moved to: ");
-        Serial.println(angle);
-      } else {
-        Serial.println("Invalid angle for top servo. Use values between 0 and 180.");
-      }
-    }
-    // Handle commands for bottom servo (B)
-    else if (input.startsWith("B:")) {
-      int angle = input.substring(2).toInt();  // Extract the angle
-      if (angle >= 0 && angle <= 180) {
-        bottomServo.write(angle);  // Move bottom servo
-        Serial.print("Bottom servo moved to: ");
-        Serial.println(angle);
-      } else {
-        Serial.println("Invalid angle for bottom servo. Use values between 0 and 180.");
-      }
-    } else {
-      Serial.println("Invalid command. Use 'init', 'T:<angle>', or 'B:<angle>'.");
-    }
-  }
+  //   // Handle "init" command to initialize servos
+  //   if (input.startsWith("init")) {
+  //     init_servo();
+  //     Serial.println("Initialization complete.");
+  //   }
+  //   // Handle commands for top servo (T)
+  //   else if (input.startsWith("T:")) {
+  //     int angle = input.substring(2).toInt();  // Extract the angle
+  //     if (angle >= 0 && angle <= 180) {
+  //       topServo.write(angle);  // Move top servo
+  //       Serial.print("Top servo moved to: ");
+  //       Serial.println(angle);
+  //     } else {
+  //       Serial.println("Invalid angle for top servo. Use values between 0 and 180.");
+  //     }
+  //   }
+  //   // Handle commands for bottom servo (B)
+  //   else if (input.startsWith("B:")) {
+  //     int angle = input.substring(2).toInt();  // Extract the angle
+  //     if (angle >= 0 && angle <= 180) {
+  //       bottomServo.write(angle);  // Move bottom servo
+  //       Serial.print("Bottom servo moved to: ");
+  //       Serial.println(angle);
+  //     } else {
+  //       Serial.println("Invalid angle for bottom servo. Use values between 0 and 180.");
+  //     }
+  //   } else {
+  //     Serial.println("Invalid command. Use 'init', 'T:<angle>', or 'B:<angle>'.");
+  //   }
+  // }
 }
 
 void init_servo() {

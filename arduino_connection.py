@@ -21,6 +21,9 @@ class ServoController:
         try:
             self.arduino.write(b"T:0\n")
             print("Top servo moved to look up.")
+        except serial.SerialException as e:
+            print(f"Failed to move top servo to look up: {e}")
+            self.arduino = None   
 
     def send_command(self, servo, angle=None):
         """Sends a command to move the servos or initialize them."""
