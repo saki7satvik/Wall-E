@@ -1,108 +1,77 @@
-# import serial
-
-# # Replace 'COM6' with the port your Arduino is connected to
-# arduino = serial.Serial(port='COM6', baudrate=9600, timeout=1)
-
-# def send_command(servo, angle):
-#     if servo not in ['T', 'B']:
-#         print("Invalid servo. Use 'T' for top or 'B' for bottom.")
-#         return
-
-#     if not (0 <= angle <= 180):
-#         print("Invalid angle. Use a value between 0 and 180.")
-#         return
-
-#     command = f"{servo}:{angle}\n"
-#     arduino.write(command.encode())
-#     print(f"Command sent: {command.strip()}")
-
-# while True:
-#     try:
-#         servo = input("Enter servo (T for top, B for bottom): ").strip().upper()
-#         angle = int(input("Enter angle (0-180): ").strip())
-#         send_command(servo, angle)
-#     except ValueError:
-#         print("Invalid input. Please enter a valid angle.")
-#     except KeyboardInterrupt:
-#         print("\nExiting...")
-#         break
-
-
 import serial
 
 class ServoController:
     def __init__(self, port, baudrate=9600, timeout=1):
-        """
-        Initialize the ServoController class with the serial connection to the Arduino.
-        """
+        self.port = port
+        self.baudrate = baudrate
+        self.timeout = timeout
+        self.arduino = None
+
+    def initialize_connection(self):
+        """Initializes the Arduino connection."""
         try:
-            self.arduino = serial.Serial(port=port, baudrate=baudrate, timeout=timeout)
-            print(f"Connected to Arduino on port {port}")
+            self.arduino = serial.Serial(port=self.port, baudrate=self.baudrate, timeout=self.timeout)
+            print(f"Connected to Arduino on port {self.port}.")
         except serial.SerialException as e:
-            print(f"Error connecting to Arduino: {e}")
+            print(f"Failed to connect to Arduino on port {self.port}: {e}")
             self.arduino = None
 
-    def send_command(self, servo, angle):
-        """
-        Sends a command to move the servo to the specified angle.
-        
-        :param servo: 'T' for top servo, 'B' for bottom servo.
-        :param angle: Angle between 0 and 180 degrees.
-        """
-        if servo not in ['T', 'B']:
-            print("Invalid servo. Use 'T' for top or 'B' for bottom.")
+    def look_up(self):
+        """Moves the top servo to look up."""
+        try:
+            self.arduino.write(b"T:0\n")
+            print("Top servo moved to look up.")
+
+    def send_command(self, servo, angle=None):
+        """Sends a command to move the servos or initialize them."""
+        if self.arduino is None:
+            print("Arduino connection is not available.")
             return
 
-        if not (0 <= angle <= 180):
-            print("Invalid angle. Use a value between 0 and 180.")
-            return
-
-        command = f"{servo}:{angle}\n"
-        if self.arduino:
-            self.arduino.write(command.encode())
-            print(f"Command sent: {command.strip()}")
+        if servo == "init":
+            command = "init\n"
+        elif servo in ["T", "B"] and angle is not None:
+            if not (0 <= angle <= 180):
+                print("Invalid angle. Use a value between 0 and 180.")
+                return
+            command = f"{servo}:{angle}\n"
         else:
-            print("Arduino connection not initialized.")
+            print("Invalid command. Use 'init', 'T:<angle>', or 'B:<angle>'.")
+            return
+
+        self.arduino.write(command.encode())
+        print(f"Command sent: {command.strip()}")
 
     def close_connection(self):
-        """
-        Closes the serial connection.
-        """
+        """Closes the Arduino connection."""
         if self.arduino:
             self.arduino.close()
             print("Arduino connection closed.")
 
 
-class ServoControlApp:
-    def __init__(self, servo_controller):
-        """
-        Initialize the ServoControlApp with a ServoController instance.
-        """
-        self.servo_controller = servo_controller
-
-    def run(self):
-        """
-        Runs the interactive CLI application for controlling servos.
-        """
-        print("Enter servo commands ('T' for top, 'B' for bottom) and angles (0-180).")
-        print("Press Ctrl+C to exit.")
-
-        while True:
-            try:
-                servo = input("Enter servo (T for top, B for bottom): ").strip().upper()
-                angle = int(input("Enter angle (0-180): ").strip())
-                self.servo_controller.send_command(servo, angle)
-            except ValueError:
-                print("Invalid input. Please enter a valid angle.")
-            except KeyboardInterrupt:
-                print("\nExiting...")
-                self.servo_controller.close_connection()
-                break
-
-
-# Main code
+# Main Program
 if __name__ == "__main__":
-    arduino_port = "COM6"  # Replace with your Arduino's port
-    servo_controller = ServoController(port=arduino_port)
-    app = ServoControlApp(servo_controller)
-    app.run()
+    # Create an instance of the ServoController
+    controller = ServoController(port="COM6")
+
+    # Initialize the Arduino connection
+    controller.initialize_connection()
+
+    try:
+        while True:
+            user_input = input("Enter command (e.g., 'T:90', 'B:45', or 'init'): ").strip()
+            if user_input == "init":
+                controller.send_command("init")
+            elif user_input.startswith("T:") or user_input.startswith("B:"):
+                try:
+                    servo, angle = user_input.split(":")
+                    angle = int(angle)
+                    controller.send_command(servo, angle)
+                except ValueError:
+                    print("Invalid command format. Use 'T:<angle>' or 'B:<angle>'.")
+            else:
+                print("Invalid command. Use 'init', 'T:<angle>', or 'B:<angle>'.")
+    except KeyboardInterrupt:
+        print("\nExiting...")
+    finally:
+        controller.close_connection()
