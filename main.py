@@ -35,6 +35,9 @@ class BasicFunction:
         else:
             print("Arduino is not connected.")
 
+    def initialize_all(self):
+        self.send_command("init", "initalized all")
+
     def look_up(self):
         self.send_command("look_up", "Top servo moved to look up.")
 
@@ -42,10 +45,10 @@ class BasicFunction:
         self.send_command("look_down", "Top servo moved to look down.")
 
     def look_left(self):
-        self.send_command("look_left", "Bottom servo moved to look left.")
+        self.send_command("turn_left", "Bottom servo moved to look left.")
 
     def look_right(self):
-        self.send_command("look_right", "Bottom servo moved to look right.")
+        self.send_command("turn_right", "Bottom servo moved to look right.")
 
     def go_right(self):
         self.send_command("go_right", "Robot moved to the right.")
@@ -58,6 +61,9 @@ class BasicFunction:
 
     def go_back(self):
         self.send_command("go_back", "Robot moved to the back.")
+
+    def dance(self):
+        self.send_command("dance", "Robot is dancing.")
 
     def close_connection(self):
         """Closes the connection to the Arduino."""
@@ -108,7 +114,7 @@ if __name__ == "__main__":
     recognizer = KaldiRecognizer(model, 16000)
 
     # Initialize and train the ML model
-    ml_model = MLModel(data="path_to_your_csv_file.csv")
+    ml_model = MLModel(data="voice recognition model/updated_file.csv")
     ml_model.clean_text()
     ml_model.vectorize()
     ml_model.train_model()
@@ -137,6 +143,22 @@ if __name__ == "__main__":
                     controller.look_up()
                 elif ml_output == "look down":
                     controller.look_down()
+                elif ml_output == "turn left":
+                    controller.look_left()
+                elif ml_output == "turn right":
+                    controller.look_right()
+                elif ml_output == "go right":
+                    controller.go_right()
+                elif ml_output == "go left":
+                    controller.go_left()
+                elif ml_output == "go front":
+                    controller.go_front()
+                elif ml_output == "go back":
+                    controller.go_back()
+                elif ml_output == "dance":
+                    controller.dance()  
+                else:
+                    print("Invalid command. Please try again.")
                 # Add more conditions based on your ML model's output
     except KeyboardInterrupt:
         print("Terminating program...")

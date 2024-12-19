@@ -15,10 +15,10 @@ stream.start_stream()
 
 print("Speak into the microphone...")
 
-df = pd.DataFrame({
-    "voice_data": [],
-    "actual_command": []
-})
+# df = pd.DataFrame({
+#     "voice_data": [],
+#     "actual_command": []
+# })
 
 try:
     while True:
@@ -29,14 +29,14 @@ try:
             recognized_text = result['text']
 
             # Append the recognized text to the DataFrame
-            new_row = pd.DataFrame({"voice_data": [recognized_text], "actual_command": [""]})
-            df = pd.concat([df, new_row], ignore_index=True)
+            # new_row = pd.DataFrame({"voice_data": [recognized_text], "actual_command": [""]})
+            # df = pd.concat([df, new_row], ignore_index=True)
 
             print("Recognized text: ", recognized_text)
 
 except KeyboardInterrupt:
     print("Exiting...")
-    df.to_csv('output_with_index.csv', index=True)
+    # df.to_csv('output_with_index.csv', index=True)
     print("Data saved to 'output_with_index.csv'")
 
 finally:
@@ -44,7 +44,3 @@ finally:
     stream.stop_stream()
     stream.close()
     audio.terminate()      
-
-
-def record_data():
-    pass

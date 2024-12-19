@@ -5,6 +5,12 @@ go back,go back
 go left,go left
 go right,go right
 stop,stop
+dogs, dance
+gangs, dance
+dance, dance
+guns, dance
+done, dance
+gangs, dance
 look up,look up
 look down,look down
 turn left,turn left
@@ -57,7 +63,6 @@ look at me,look at me
 look at me,look at me
 by,bye
 by,bye
-modeling,
 go frank,go front
 boiling,boiling
 go for,go front
@@ -71,10 +76,15 @@ stop,stop
 stop,stop
 look up,look up
 stop,stop
+dogs, dance
+gangs, dance
+dance, dance
+guns, dance
+done, dance
+gangs, dance
 looked up,look up
 down,look down
 don't left,turn left
-don't love it,
 don't right,turn right
 hi,hi
 look at me,look at me
@@ -89,6 +99,7 @@ go right,go right
 go right,go right
 stop,stop
 stop,stop
+don't left,turn left
 stop,stop
 look at me,look at me
 go left,go left
@@ -97,6 +108,12 @@ go left,go left
 turn left,turn left
 turn right,turn right
 look up,look up
+dogs, dance
+gangs, dance
+dance, dance
+guns, dance
+done, dance
+gangs, dance
 look down,look down
 don't left,turn left
 go right,go right
@@ -109,12 +126,12 @@ while him,wally
 walid,wally
 boiling,boiling
 look at me,look at me
-one,
 wally,wally
 look at me,look at me
 hi,hi
-the a,
 by,by
+don't left,turn left
+don't left,turn left
 by,by
 voice_data,actual_command
 why the,wally
@@ -143,6 +160,9 @@ go back,go back
 go back,go back
 go left,go left
 go left,go left
+don't left,turn left
+don't left,turn left
+don't left,turn left
 go left,go left
 go left,go left
 go left,go left
@@ -166,6 +186,7 @@ turn left,turn left
 turn left,turn left
 don't right,turn right
 don't right,turn right
+don't left,turn left
 look up,look up
 don't drive,turn right
 hi,hi
@@ -175,7 +196,6 @@ look at me,look at me
 look at me,look at me
 by,bye
 by,bye
-modeling,
 go frank,go front
 boiling,boiling
 go for,go front
@@ -189,16 +209,19 @@ stop,stop
 stop,stop
 look up,look up
 stop,stop
+hi,hi
+hi,hi
 looked up,look up
 down,look down
 don't left,turn left
-don't love it,
 don't right,turn right
 hi,hi
 look at me,look at me
 look at me,look at me
 look up,look up
 stop it,stop
+turn left,turn left
+turn left,turn left
 go back,go back
 go back,go back
 go for it,go front
@@ -212,6 +235,12 @@ look at me,look at me
 go left,go left
 turn left,turn left
 go left,go left
+turn left,turn left
+turn left,turn left
+turn left,turn left
+turn left,turn left
+hi,hi
+hi,hi
 turn left,turn left
 turn right,turn right
 look up,look up
@@ -227,10 +256,14 @@ while him,wally
 walid,wally
 boiling,boiling
 look at me,look at me
-one,
 wally,wally
 look at me,look at me
 hi,hi
-the a,
-by,by
-by,by
+by,bye
+by,bye
+dogs, dance
+gangs, dance
+dance, dance
+guns, dance
+done, dance
+gangs, dance
