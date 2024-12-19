@@ -3,6 +3,7 @@ venv
 *.pt
 *.yaml
 *.jpg
+*.png
 stapler-detection-1
 human-detection-1
 yolov5
